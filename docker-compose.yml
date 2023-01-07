@@ -6,11 +6,11 @@ services:
     build: .
     image: morsof48/rings-quest-back:latest
     environment:
-      - DATABASE_HOST=db
-      - DATABASE_PORT=5432
-      - DATABASE_USERNAME=postgres
-      - DATABASE_PASSWORD=example
-      - DATABASE_NAME=postgres
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USERNAME: dev
+      DB_PASSWORD: 1234
+      DB_NAME: postgres
     ports:
       - "3555:3000"
     depends_on:
@@ -20,15 +20,13 @@ services:
     container_name: postgres_container
     image: postgres
     environment:
-      POSTGRES_USER: ${POSTGRES_USER:-postgres}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-example}
+      POSTGRES_USER: ${POSTGRES_USER:-dev}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-1234}
       PGDATA: /data/postgres
     volumes:
       - postgres:/data/postgres
     ports:
       - "5432:5432"
-    networks:
-      - postgres
     restart: unless-stopped
 
   pgadmin:
@@ -41,18 +39,12 @@ services:
     volumes:
       - pgadmin:/var/lib/pgadmin
     ports:
-      - "${PGADMIN_PORT:-5050}:80"
-    networks:
-      - postgres
+      - "5050:80"
     restart: unless-stopped
 
   redis:
     container_name: redis
     image: redis:6.2-alpine
-
-networks:
-  postgres:
-     driver: bridge
 
 volumes:
     postgres:
