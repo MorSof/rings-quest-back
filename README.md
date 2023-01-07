@@ -5,6 +5,7 @@
 ## Rings Quest Backend
 
 ### Run all services with docker compose
+
 #### Prerequisites
 
 Before you run on docker, make sure that you have the following requirements installed on your system:
@@ -34,8 +35,15 @@ $ nvm use
 $ npm install
 ```
 
-## Running the app
+## Running locally
 
+#### Build and run docker-compose
+```shell
+$ docker-compose build
+$ docker-compose up
+````
+
+#### Run the app
 ```bash
 # development
 $ npm run start
@@ -48,6 +56,17 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 ```
+
+## DB creation locally
+After your docker-compose is up, you'll nee to create a DB: 
+1. Navigate to [pdAdmin](http://localhost:5050/browser/)
+2. Press on the "Add New Server" Button, a popup window will appear.
+3. On the general tab name your server "rings_quest"
+4. On the connection tab:
+   - **Host name/address**: postgres 
+   - **Port**: 5432
+   - **Username**: dev
+   - **Password**: 1234
 
 ## Test
 
@@ -62,16 +81,11 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Support
+## Developer tips
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+- You should use this CLI commands to generate controllers/services/modules:
+```shell
+$ nest generate module users
+$ nest g controller users/controllers/users
+$ nest g service users/services/users
+```
