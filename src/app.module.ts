@@ -5,6 +5,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import entities from './db';
+import { LevelsModule } from './levels/levels.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import entities from './db';
       inject: [ConfigService],
     }),
     UsersModule,
+    LevelsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
