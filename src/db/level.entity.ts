@@ -31,6 +31,9 @@ export class Level {
     }[];
   };
 
+  @Column({ nullable: true, type: 'float' })
+  worldId: number;
+
   @ManyToOne((type) => World, (world) => world.levels)
   world: World;
 }
