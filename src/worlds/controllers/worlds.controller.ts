@@ -1,7 +1,9 @@
 import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { Level, World } from '../../db';
 import { WorldsService } from '../services/worlds.service';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('worlds')
 @Controller('worlds')
 export class WorldsController {
   constructor(private readonly worldService: WorldsService) {}
