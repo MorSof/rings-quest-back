@@ -1,7 +1,8 @@
 import { User } from './user.entity';
 import { Level } from './level.entity';
+import { World } from './world.entity';
 
-const entities = [User, Level];
+const entities = [User, World, Level];
 
-export { User, Level };
+export { User, World, Level };
 export default entities;

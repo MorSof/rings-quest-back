@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import entities from './db';
 import { LevelsModule } from './levels/levels.module';
+import { WorldsModule } from './worlds/worlds.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { LevelsModule } from './levels/levels.module';
     }),
     UsersModule,
     LevelsModule,
+    WorldsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

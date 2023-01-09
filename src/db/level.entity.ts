@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { World } from './world.entity';
 
 @Entity()
 export class Level {
@@ -29,4 +30,7 @@ export class Level {
       amount?: number;
     }[];
   };
+
+  @ManyToOne((type) => World, (world) => world.levels)
+  world: World;
 }
