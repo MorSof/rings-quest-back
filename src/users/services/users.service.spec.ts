@@ -13,14 +13,14 @@ describe('UsersService', () => {
       providers: [
         UsersService,
         {
-          provide: 'UserRepository',
+          provide: 'UserEntityRepository',
           useClass: Repository,
         },
       ],
     }).compile();
 
     usersService = module.get<UsersService>(UsersService);
-    userRepository = module.get<Repository<UserEntity>>('UserRepository');
+    userRepository = module.get<Repository<UserEntity>>('UserEntityRepository');
   });
 
   describe('createUser', () => {
