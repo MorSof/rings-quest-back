@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UsersController } from './users.controller';
 import { UsersService } from '../services/users.service';
-import { User } from '../../db';
+import { UserEntity } from '../../db';
 
 describe('UsersController', () => {
   let usersController: UsersController;
@@ -21,7 +21,7 @@ describe('UsersController', () => {
 
   describe('findUsersById', () => {
     it('should return the user with the given ID', () => {
-      const user: User = {
+      const user: UserEntity = {
         id: 1,
         username: 'John Doe',
         password: 'password1234',

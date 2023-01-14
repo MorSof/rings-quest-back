@@ -1,8 +1,8 @@
-import { User } from './user.entity';
-import { Level } from './level.entity';
-import { World } from './world.entity';
+import { UserEntity } from './user.entity';
+import { LevelEntity } from './level.entity';
+import { WorldEntity } from './world.entity';
 
-const entities = [User, World, Level];
+const entities = [UserEntity, WorldEntity, LevelEntity];
 
-export { User, World, Level };
+export { UserEntity, WorldEntity, LevelEntity };
 export default entities;

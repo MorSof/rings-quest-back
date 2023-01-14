@@ -1,14 +1,18 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
-import { Level } from './level.entity';
+import { LevelEntity } from './level.entity';
 
 @Entity()
-export class World {
+export class WorldEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
   name: string;
 
-  @OneToMany((type) => Level, (level) => level.world)
-  levels: Level[];
+  @OneToMany((type) => LevelEntity, (level) => level.world)
+  levels: LevelEntity[];
+
+  constructor(partial: Partial<WorldEntity>) {
+    Object.assign(this, partial);
+  }
 }

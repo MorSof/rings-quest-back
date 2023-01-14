@@ -1,12 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UsersService } from './users.service';
 import { Repository } from 'typeorm';
-import { User } from '../../db';
-import { CreateUserDto } from '../dto/users.dtos';
+import { UserEntity } from '../../db';
+import { CreateUserDto } from '../dtos/users.dto';
 
 describe('UsersService', () => {
   let usersService: UsersService;
-  let userRepository: Repository<User>;
+  let userRepository: Repository<UserEntity>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -20,7 +20,7 @@ describe('UsersService', () => {
     }).compile();
 
     usersService = module.get<UsersService>(UsersService);
-    userRepository = module.get<Repository<User>>('UserRepository');
+    userRepository = module.get<Repository<UserEntity>>('UserRepository');
   });
 
   describe('createUser', () => {
@@ -30,7 +30,7 @@ describe('UsersService', () => {
         password: 'password1234',
         email: 'email@email.com',
       };
-      const user: User = {
+      const user: UserEntity = {
         id: 1,
         username: 'John Doe',
         password: 'password1234',
@@ -47,7 +47,7 @@ describe('UsersService', () => {
 
   describe('findUsersById', () => {
     it('should return the user with the given ID', async () => {
-      const user: User = {
+      const user: UserEntity = {
         id: 1,
         username: 'John Doe',
         password: 'password1234',

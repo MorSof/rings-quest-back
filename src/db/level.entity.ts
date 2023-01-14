@@ -1,8 +1,8 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { World } from './world.entity';
+import { WorldEntity } from './world.entity';
 
 @Entity()
-export class Level {
+export class LevelEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -34,6 +34,10 @@ export class Level {
   @Column({ nullable: true, type: 'float' })
   worldId: number;
 
-  @ManyToOne((type) => World, (world) => world.levels)
-  world: World;
+  @ManyToOne((type) => WorldEntity, (world) => world.levels)
+  world: WorldEntity;
+
+  constructor(partial: Partial<LevelEntity>) {
+    Object.assign(this, partial);
+  }
 }
