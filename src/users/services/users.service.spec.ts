@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { UsersService } from './users.service';
 import { Repository } from 'typeorm';
 import { UserEntity } from '../../db';
-import { CreateUserDto } from '../dtos/users.dto';
+import { User } from '../models/user.model';
 
 describe('UsersService', () => {
   let usersService: UsersService;
@@ -25,39 +25,41 @@ describe('UsersService', () => {
 
   describe('createUser', () => {
     it('should create a new user', async () => {
-      const createUserDto: CreateUserDto = {
-        username: 'John Doe',
-        password: 'password1234',
+      const userEntity: UserEntity = {
+        id: 'generated_id',
+        name: 'John Doe',
         email: 'email@email.com',
       };
-      const user: UserEntity = {
-        id: 1,
-        username: 'John Doe',
-        password: 'password1234',
+      const user: User = {
+        id: 'generated_id',
+        name: 'John Doe',
         email: 'email@email.com',
       };
-      jest.spyOn(userRepository, 'create').mockImplementation(() => user);
       jest
         .spyOn(userRepository, 'save')
-        .mockImplementation(() => Promise.resolve(user));
+        .mockImplementation(() => Promise.resolve(userEntity));
 
-      expect(await usersService.createUser(createUserDto)).toBe(user);
+      expect(await usersService.createUser(user)).toEqual(user);
     });
   });
 
   describe('findUsersById', () => {
     it('should return the user with the given ID', async () => {
-      const user: UserEntity = {
-        id: 1,
-        username: 'John Doe',
-        password: 'password1234',
+      const userEntity: UserEntity = {
+        id: 'generated_id',
+        name: 'John Doe',
+        email: 'email@email.com',
+      };
+      const user: User = {
+        id: 'generated_id',
+        name: 'John Doe',
         email: 'email@email.com',
       };
       jest
         .spyOn(userRepository, 'findOneBy')
-        .mockImplementation(() => Promise.resolve(user));
+        .mockImplementation(() => Promise.resolve(userEntity));
 
-      expect(await usersService.findUsersById(1)).toBe(user);
+      expect(await usersService.findUsersById('generated_id')).toEqual(user);
     });
   });
 });

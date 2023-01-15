@@ -1,7 +1,7 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { LevelEntity, WorldEntity } from '../../db';
-import { World } from '../world/world.model';
+import { World } from '../models/world.model';
 import { Level } from '../levels/models/level.model';
 import { LevelsService } from '../levels/services/levels.service';
 
