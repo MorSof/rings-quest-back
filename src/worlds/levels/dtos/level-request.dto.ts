@@ -61,7 +61,7 @@ export class LevelRequestDto {
 
   @ApiModelProperty({
     type: 'number',
-    description: 'The ID of the world the level belongs to',
+    description: 'The ID of the models the level belongs to',
     nullable: true,
   })
   worldId: number;

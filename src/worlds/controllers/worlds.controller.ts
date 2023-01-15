@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { WorldsService } from '../services/worlds.service';
 import { ApiTags } from '@nestjs/swagger';
 import { WorldRequestDto } from '../dtos/world-request.dto';
-import { World } from '../world/world.model';
+import { World } from '../models/world.model';
 import { WorldResponseDto } from '../dtos/world-response.dto';
 
 @ApiTags('worlds')

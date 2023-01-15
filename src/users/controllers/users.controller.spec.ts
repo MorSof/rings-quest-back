@@ -1,34 +1,57 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UsersController } from './users.controller';
 import { UsersService } from '../services/users.service';
-import { UserEntity } from '../../db';
+import { User } from '../models/user.model';
+import { UserResponseDto } from '../dtos/user-response.dto';
 
 describe('UsersController', () => {
-  let usersController: UsersController;
-  const usersService = { findUsersById: jest.fn() };
+  let controller: UsersController;
+  let service: UsersService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [UsersController],
-      providers: [UsersService],
-    })
-      .overrideProvider(UsersService)
-      .useValue(usersService)
-      .compile();
+      providers: [
+        {
+          provide: UsersService,
+          useValue: {
+            findUsersById: jest.fn(),
+            createUser: jest.fn(),
+          },
+        },
+      ],
+    }).compile();
 
-    usersController = module.get<UsersController>(UsersController);
+    controller = module.get<UsersController>(UsersController);
+    service = module.get<UsersService>(UsersService);
   });
 
   describe('findUsersById', () => {
-    it('should return the user with the given ID', () => {
-      const user: UserEntity = {
-        id: 1,
-        username: 'John Doe',
-        password: 'password1234',
-        email: 'email@email.com',
-      };
-      usersService.findUsersById.mockReturnValue(user);
-      expect(usersController.findUsersById(1)).toBe(user);
+    it('should return an user', async () => {
+      const user = new User({ id: '1', name: 'name', email: 'email' });
+      jest.spyOn(service, 'findUsersById').mockResolvedValue(user);
+
+      expect(await controller.findUsersById('1')).toEqual(
+        new UserResponseDto({ id: '1', name: 'name', email: 'email' }),
+      );
+    });
+  });
+
+  describe('createUsers', () => {
+    it('should create an user', async () => {
+      const user = new User({ id: '1', name: 'name', email: 'email' });
+      jest.spyOn(service, 'createUser').mockResolvedValue(user);
+
+      const userResponseDto: UserResponseDto = await controller.createUsers({
+        name: 'name',
+        email: 'email',
+      });
+
+      expect(userResponseDto).toEqual({
+        id: '1',
+        name: 'name',
+        email: 'email',
+      });
     });
   });
 });

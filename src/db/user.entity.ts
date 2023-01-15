@@ -2,28 +2,16 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class UserEntity {
-  @PrimaryGeneratedColumn({
-    type: 'bigint',
-    name: 'user_id',
-  })
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-  @Column({
-    nullable: false,
-    default: '',
-  })
-  username: string;
+  @Column({ nullable: true })
+  name: string;
 
-  @Column({
-    name: 'email_address',
-    nullable: false,
-    default: '',
-  })
+  @Column({ nullable: true })
   email: string;
 
-  @Column({
-    nullable: false,
-    default: '',
-  })
-  password: string;
+  constructor(partial: Partial<UserEntity>) {
+    Object.assign(this, partial);
+  }
 }
