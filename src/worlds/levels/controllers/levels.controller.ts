@@ -12,11 +12,15 @@ import { Level } from '../models/level.model';
 import { ApiTags } from '@nestjs/swagger';
 import { LevelRequestDto } from '../dtos/level-request.dto';
 import { LevelResponseDto } from '../dtos/level-response.dto';
+import { LevelsDtoConverter } from '../services/levels-dto.converter';
 
 @ApiTags('levels')
 @Controller('worlds/:worldId/levels')
 export class LevelsController {
-  constructor(private readonly levelsService: LevelsService) {}
+  constructor(
+    private readonly levelsService: LevelsService,
+    private readonly levelsDtoConverterService: LevelsDtoConverter,
+  ) {}
 
   @Get(':id')
   async findOne(
@@ -24,7 +28,7 @@ export class LevelsController {
     @Param('id') id: number,
   ): Promise<LevelResponseDto> {
     const level: Level = await this.levelsService.findOne(worldId, id);
-    return this.convertModelToDto(level);
+    return this.levelsDtoConverterService.convertTo(level);
   }
 
   @Get()
@@ -32,7 +36,9 @@ export class LevelsController {
     @Param('worldId') worldId: number,
   ): Promise<LevelResponseDto[]> {
     const levels: Level[] = await this.levelsService.findAll(worldId);
-    return levels.map((level) => this.convertModelToDto(level));
+    return levels.map((level) =>
+      this.levelsDtoConverterService.convertTo(level),
+    );
   }
 
   @Post()
@@ -42,9 +48,9 @@ export class LevelsController {
   ): Promise<LevelResponseDto> {
     const level: Level = await this.levelsService.create(
       worldId,
-      this.convertDtoToModel(levelRequestDto),
+      this.levelsDtoConverterService.convertFrom(levelRequestDto),
     );
-    return this.convertModelToDto(level);
+    return this.levelsDtoConverterService.convertTo(level);
   }
 
   @Put()
@@ -56,9 +62,9 @@ export class LevelsController {
     const level: Level = await this.levelsService.update(
       worldId,
       id,
-      this.convertDtoToModel(levelRequestDto),
+      this.levelsDtoConverterService.convertFrom(levelRequestDto),
     );
-    return this.convertModelToDto(level);
+    return this.levelsDtoConverterService.convertTo(level);
   }
 
   @Delete(':id')
@@ -67,15 +73,5 @@ export class LevelsController {
     @Param('id') id: number,
   ): Promise<void> {
     return this.levelsService.remove(worldId, id);
-  }
-
-  private convertDtoToModel(levelDto: LevelRequestDto): Level {
-    const { id, playables, scoreGoal, combo, worldId } = levelDto;
-    return new Level({ id, playables, scoreGoal, combo, worldId });
-  }
-
-  private convertModelToDto(level: Level): LevelResponseDto {
-    const { id, playables, scoreGoal, combo, worldId } = level;
-    return new LevelResponseDto({ id, playables, scoreGoal, combo, worldId });
   }
 }

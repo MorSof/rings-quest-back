@@ -1,9 +1,9 @@
-import { Level } from '../levels/models/level.model';
+import { LevelResponseDto } from '../levels/dtos/level-response.dto';
 
 export class WorldResponseDto {
   id: number;
   name: string;
-  levels: Level[];
+  levels: LevelResponseDto[];
 
   constructor(partial: Partial<WorldResponseDto>) {
     Object.assign(this, partial);

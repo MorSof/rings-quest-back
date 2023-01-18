@@ -3,41 +3,34 @@ import { WorldsService } from '../services/worlds.service';
 import { ApiTags } from '@nestjs/swagger';
 import { WorldRequestDto } from '../dtos/world-request.dto';
 import { World } from '../models/world.model';
-import { WorldResponseDto } from '../dtos/world-response.dto';
+import { WorldsDtoConverter } from '../services/worlds-dto.converter';
 
 @ApiTags('worlds')
 @Controller('worlds')
 export class WorldsController {
-  constructor(private readonly worldService: WorldsService) {}
+  constructor(
+    private readonly worldService: WorldsService,
+    private readonly worldsDtoConverter: WorldsDtoConverter,
+  ) {}
 
   @Get()
   async findAll(): Promise<WorldRequestDto[]> {
     const worlds: World[] = await this.worldService.findAll();
-    return worlds.map((world) => this.convertModelToDto(world));
+    return worlds.map((world) => this.worldsDtoConverter.convertTo(world));
   }
 
   @Get(':id')
   async findOne(@Param('id') id: number): Promise<WorldRequestDto> {
     const world: World = await this.worldService.findOne(id);
-    return this.convertModelToDto(world);
+    return this.worldsDtoConverter.convertTo(world);
   }
 
   @Post()
   async create(
     @Body() worldRequestDto: WorldRequestDto,
   ): Promise<WorldRequestDto> {
-    let world: World = this.convertDtoToModel(worldRequestDto);
+    let world: World = this.worldsDtoConverter.convertFrom(worldRequestDto);
     world = await this.worldService.create(world);
-    return this.convertModelToDto(world);
-  }
-
-  private convertDtoToModel(worldRequestDto: WorldRequestDto): World {
-    const { id, name, levels } = worldRequestDto;
-    return new World({ id, name, levels });
-  }
-
-  private convertModelToDto(world: World): WorldResponseDto {
-    const { id, name, levels } = world;
-    return new WorldResponseDto({ id, name, levels });
+    return this.worldsDtoConverter.convertTo(world);
   }
 }

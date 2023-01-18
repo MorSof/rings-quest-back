@@ -21,6 +21,11 @@ export class LevelRequestDto {
           type: 'number',
           description: 'The cooldown of the playable',
         },
+        assetsIds: {
+          type: 'array',
+          description: 'An array of assets IDs for the playable',
+          items: { type: 'number' },
+        },
         destinationIds: {
           type: 'array',
           description: 'An array of destination IDs for the playable',
