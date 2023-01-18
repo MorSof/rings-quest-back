@@ -9,6 +9,12 @@ export class LevelResponseDto {
     destinationIds: number[];
     score: number;
   }[];
+  stats: {
+    assets: {
+      countByIds: object;
+      total: number;
+    };
+  };
   scoreGoal: number;
   combo: {
     goal: number;

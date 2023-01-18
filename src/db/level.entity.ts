@@ -10,6 +10,7 @@ export class LevelEntity {
   playables: {
     type: string;
     subType: string;
+    assetsIds: number[];
     speed: number;
     duration: number;
     cooldown: number;
@@ -29,6 +30,14 @@ export class LevelEntity {
       odd: number;
       amount?: number;
     }[];
+  };
+
+  @Column({ nullable: true, type: 'json' })
+  stats: {
+    assets: {
+      countByIds: object;
+      total: number;
+    };
   };
 
   @Column({ nullable: true, type: 'float' })
