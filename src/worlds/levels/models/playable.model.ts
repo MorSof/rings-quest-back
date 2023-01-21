@@ -1,10 +1,9 @@
 export interface Playable {
   type: string;
-  subType: string;
-  assetsIds: number[];
-  speed: number;
+  subType?: string;
+  name: string;
   duration: number;
   cooldown: number;
-  destinationIds: number[];
+  vertices: number[];
   score: number;
 }

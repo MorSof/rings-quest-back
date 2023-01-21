@@ -2,29 +2,38 @@ export class LevelResponseDto {
   id: number;
   playables: {
     type: string;
-    subType: string;
-    speed: number;
+    name: string;
+    subType?: string;
     duration: number;
     cooldown: number;
-    destinationIds: number[];
+    vertices: number[];
     score: number;
   }[];
   stats: {
-    assets: {
-      countByIds: object;
+    playables: {
+      countByName: object;
       total: number;
     };
   };
-  scoreGoal: number;
+  lives: number;
   combo: {
-    goal: number;
-    rewards: {
-      type: string;
-      subType: string;
-      odd: number;
-      amount?: number;
+    bars: {
+      goal: number;
+      rewards: {
+        type: string;
+        name: string;
+        amount: number;
+      }[];
     }[];
   };
+  goals: {
+    score: number;
+    rewards: {
+      type: string;
+      name: string;
+      amount: number;
+    }[];
+  }[];
   worldId: number;
 
   constructor(partial: Partial<LevelResponseDto>) {

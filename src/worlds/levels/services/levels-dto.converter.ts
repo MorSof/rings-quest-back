@@ -6,19 +6,20 @@ import { LevelResponseDto } from '../dtos/level-response.dto';
 @Injectable()
 export class LevelsDtoConverter {
   public convertFrom(levelDto: LevelRequestDto): Level {
-    const { id, playables, scoreGoal, combo, worldId } = levelDto;
-    return new Level({ id, playables, scoreGoal, combo, worldId });
+    const { id, playables, lives, combo, worldId, goals } = levelDto;
+    return new Level({ id, playables, lives, combo, worldId, goals });
   }
 
   public convertTo(level: Level): LevelResponseDto {
-    const { id, playables, scoreGoal, combo, worldId, stats } = level;
+    const { id, playables, lives, combo, worldId, stats, goals } = level;
     return new LevelResponseDto({
       id,
       playables,
-      scoreGoal,
+      lives,
       combo,
       worldId,
       stats,
+      goals,
     });
   }
 }

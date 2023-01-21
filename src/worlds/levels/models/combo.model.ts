@@ -1,6 +1,5 @@
-import { Reward } from './reward.model';
+import { Bar } from './bar.model';
 
 export interface Combo {
-  goal: number;
-  rewards: Reward[];
+  bars: Bar[];
 }
