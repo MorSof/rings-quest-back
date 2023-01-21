@@ -9,33 +9,43 @@ export class LevelEntity {
   @Column('json')
   playables: {
     type: string;
-    subType: string;
-    assetsIds: number[];
-    speed: number;
+    name: string;
+    subType?: string;
     duration: number;
     cooldown: number;
-    destinationIds: number[];
+    vertices: number[];
     score: number;
   }[];
 
   @Column()
-  scoreGoal: number;
+  lives: number;
 
   @Column('json')
   combo: {
-    goal: number;
-    rewards: {
-      type: string;
-      subType: string;
-      odd: number;
-      amount?: number;
+    bars: {
+      goal: number;
+      rewards: {
+        type: string;
+        name: string;
+        amount: number;
+      }[];
     }[];
   };
 
   @Column({ nullable: true, type: 'json' })
+  goals: {
+    score: number;
+    rewards: {
+      type: string;
+      name: string;
+      amount: number;
+    }[];
+  }[];
+
+  @Column({ nullable: true, type: 'json' })
   stats: {
-    assets: {
-      countByIds: object;
+    playables: {
+      countByName: object;
       total: number;
     };
   };

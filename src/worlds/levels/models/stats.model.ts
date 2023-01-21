@@ -1,12 +1,12 @@
 export class Stats {
-  assets: {
-    countByIds: object;
+  playables: {
+    countByName: object;
     total: number;
   };
 
   constructor() {
-    this.assets = {
-      countByIds: {},
+    this.playables = {
+      countByName: {},
       total: 0,
     };
   }
