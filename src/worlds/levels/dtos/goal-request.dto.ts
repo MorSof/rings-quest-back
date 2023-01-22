@@ -1,5 +1,5 @@
 import { ApiModelProperty } from '@nestjs/swagger/dist/decorators/api-model-property.decorator';
-import { ResourceRequestDto } from './resource-request.dto';
+import { ResourceRequestDto } from '../../../core/resources/dtos/resource-request.dto';
 
 export class GoalRequestDto {
   @ApiModelProperty({

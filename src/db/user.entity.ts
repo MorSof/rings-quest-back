@@ -4,11 +4,13 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { ResourceEntity } from './resource.entity';
 
-@Entity()
+@Entity({ name: 'users' })
 export class UserEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -20,19 +22,22 @@ export class UserEntity {
   email: string;
 
   @CreateDateColumn()
-  createdAt: Date;
+  createdAt?: Date;
 
   @UpdateDateColumn()
-  updatedAt: Date;
+  updatedAt?: Date;
+
+  @OneToMany((type) => ResourceEntity, (resource) => resource.user)
+  resources?: ResourceEntity[];
 
   @BeforeInsert()
-  beforeInsert() {
+  beforeInsert?() {
     this.createdAt = new Date();
     this.updatedAt = new Date();
   }
 
   @BeforeUpdate()
-  beforeUpdate() {
+  beforeUpdate?() {
     this.updatedAt = new Date();
   }
 
