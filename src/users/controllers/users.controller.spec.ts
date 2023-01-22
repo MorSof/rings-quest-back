@@ -4,6 +4,7 @@ import { UsersService } from '../services/users.service';
 import { User } from '../models/user.model';
 import { UserResponseDto } from '../dtos/user-response.dto';
 import { UsersDtoConverter } from '../services/users-dto.converter';
+import { ResourcesDtoConverter } from '../../core/resources/convertes/resources-dto.converter';
 
 describe('UsersController', () => {
   let controller: UsersController;
@@ -14,6 +15,7 @@ describe('UsersController', () => {
       controllers: [UsersController],
       providers: [
         UsersDtoConverter,
+        ResourcesDtoConverter,
         {
           provide: UsersService,
           useValue: {

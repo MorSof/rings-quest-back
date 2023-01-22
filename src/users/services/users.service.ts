@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserEntity } from '../../db';
 import { User } from '../models/user.model';
+import { Resource } from '../../core/resources/models/resource.model';
 import { UsersEntityConverter } from './users-entity.converter';
 
 @Injectable()
@@ -33,6 +34,7 @@ export class UsersService {
 
   async getUserStorage(id: string): Promise<User> {
     const userEntity = await this.userRepository.findOne({
+      select: ['resources'],
       where: { id },
       relations: { resources: true },
     });
