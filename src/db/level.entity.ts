@@ -10,7 +10,7 @@ import {
 } from 'typeorm';
 import { WorldEntity } from './world.entity';
 
-@Entity()
+@Entity({ name: 'levels' })
 export class LevelEntity {
   @PrimaryGeneratedColumn()
   id: number;

@@ -1,31 +1,37 @@
 import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  OneToMany,
-  CreateDateColumn,
-  UpdateDateColumn,
   BeforeInsert,
   BeforeUpdate,
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
-import { LevelEntity } from './level.entity';
+import { UserEntity } from './user.entity';
 
-@Entity({ name: 'worlds' })
-export class WorldEntity {
+@Entity({ name: 'resources' })
+export class ResourceEntity {
   @PrimaryGeneratedColumn()
-  id: number;
+  id: string;
+
+  @Column()
+  type: string;
 
   @Column()
   name: string;
 
-  @OneToMany((type) => LevelEntity, (level) => level.world)
-  levels: LevelEntity[];
+  @Column()
+  amount: number;
 
   @CreateDateColumn()
   createdAt: Date;
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @ManyToOne((type) => UserEntity, (user) => user.resources)
+  user: UserEntity;
 
   @BeforeInsert()
   beforeInsert() {
@@ -38,7 +44,7 @@ export class WorldEntity {
     this.updatedAt = new Date();
   }
 
-  constructor(partial: Partial<WorldEntity>) {
+  constructor(partial: Partial<ResourceEntity>) {
     Object.assign(this, partial);
   }
 }

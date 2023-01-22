@@ -12,32 +12,42 @@ import { UsersService } from '../services/users.service';
 import { ApiTags } from '@nestjs/swagger';
 import { User } from '../models/user.model';
 import { UserResponseDto } from '../dtos/user-response.dto';
+import { UsersDtoConverter } from '../services/users-dto.converter';
 
 @ApiTags('users')
 @Controller('users')
 export class UsersController {
-  constructor(private readonly userService: UsersService) {}
+  constructor(
+    private readonly userService: UsersService,
+    private readonly usersDtoConverter: UsersDtoConverter,
+  ) {}
+
+  @Get()
+  async findUAllUsers(): Promise<UserResponseDto[]> {
+    const users: User[] = await this.userService.findUAllUsers();
+    return users.map((user) => this.usersDtoConverter.convertTo(user));
+  }
 
   @Get(':id')
-  async findUsersById(@Param('id') id: string) {
+  async findUsersById(@Param('id') id: string): Promise<UserResponseDto> {
     const user: User = await this.userService.findUsersById(id);
-    return this.convertModelToDto(user);
+    return this.usersDtoConverter.convertTo(user);
   }
 
   @Post()
   @UsePipes(ValidationPipe)
-  async createUsers(@Body() createUserDto: UserRequestDto) {
-    const user: User = this.convertDtoToModel(createUserDto);
-    return this.convertModelToDto(await this.userService.createUser(user));
+  async createUsers(
+    @Body() createUserDto: UserRequestDto,
+  ): Promise<UserResponseDto> {
+    const user: User = this.usersDtoConverter.convertFrom(createUserDto);
+    return this.usersDtoConverter.convertTo(
+      await this.userService.createUser(user),
+    );
   }
 
-  private convertDtoToModel(userRequestDto: UserRequestDto): User {
-    const { name, email } = userRequestDto;
-    return new User({ name, email });
-  }
-
-  private convertModelToDto(user: User): UserResponseDto {
-    const { id, name, email } = user;
-    return new UserResponseDto({ id, name, email });
+  @Get(':id/storage')
+  async getUserStorage(@Param('id') id: string): Promise<UserResponseDto> {
+    const user: User = await this.userService.getUserStorage(id);
+    return this.usersDtoConverter.convertTo(user);
   }
 }

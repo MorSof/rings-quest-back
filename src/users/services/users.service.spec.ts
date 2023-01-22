@@ -3,6 +3,8 @@ import { UsersService } from './users.service';
 import { Repository } from 'typeorm';
 import { UserEntity } from '../../db';
 import { User } from '../models/user.model';
+import { UsersEntityConverter } from './users-entity.converter';
+import { ResourcesEntityConverter } from '../../core/resources/convertes/resources-entity.converter';
 
 describe('UsersService', () => {
   let usersService: UsersService;
@@ -12,6 +14,8 @@ describe('UsersService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         UsersService,
+        UsersEntityConverter,
+        ResourcesEntityConverter,
         {
           provide: 'UserEntityRepository',
           useClass: Repository,

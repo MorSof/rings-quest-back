@@ -3,6 +3,7 @@ import { UsersController } from './users.controller';
 import { UsersService } from '../services/users.service';
 import { User } from '../models/user.model';
 import { UserResponseDto } from '../dtos/user-response.dto';
+import { UsersDtoConverter } from '../services/users-dto.converter';
 
 describe('UsersController', () => {
   let controller: UsersController;
@@ -12,6 +13,7 @@ describe('UsersController', () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [UsersController],
       providers: [
+        UsersDtoConverter,
         {
           provide: UsersService,
           useValue: {
