@@ -1,5 +1,4 @@
 import { ApiModelProperty } from '@nestjs/swagger/dist/decorators/api-model-property.decorator';
-import { ComboRequestDto } from './combo-request.dto';
 
 export class PlayablesRequestDto {
   @ApiModelProperty({

@@ -9,6 +9,9 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { WorldEntity } from './world.entity';
+import { ResourceTypesEnum } from '../core/resources/models/resourceTypes.enum';
+import { CurrencyNamesEnum } from '../core/resources/models/currencyNamesEnum';
+import { BoosterNamesEnum } from '../core/resources/models/boosterNamesEnum';
 
 @Entity({ name: 'levels' })
 export class LevelEntity {
@@ -34,8 +37,8 @@ export class LevelEntity {
     bars: {
       goal: number;
       rewards: {
-        type: string;
-        name: string;
+        type: ResourceTypesEnum;
+        name: BoosterNamesEnum | CurrencyNamesEnum;
         amount: number;
       }[];
     }[];
@@ -45,8 +48,8 @@ export class LevelEntity {
   goals: {
     score: number;
     rewards: {
-      type: string;
-      name: string;
+      type: ResourceTypesEnum;
+      name: BoosterNamesEnum | CurrencyNamesEnum;
       amount: number;
     }[];
   }[];

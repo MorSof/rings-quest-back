@@ -4,11 +4,9 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { ResourceEntity } from './resource.entity';
 
 @Entity({ name: 'users' })
 export class UserEntity {
@@ -26,9 +24,6 @@ export class UserEntity {
 
   @UpdateDateColumn()
   updatedAt?: Date;
-
-  @OneToMany((type) => ResourceEntity, (resource) => resource.user)
-  resources?: ResourceEntity[];
 
   @BeforeInsert()
   beforeInsert?() {

@@ -1,3 +1,6 @@
+import { ComboResponseDto } from '../combo/dtos/combo-response.dto';
+import { GoalResponseDto } from '../goals/dtos/goal-response.dto';
+
 export class LevelResponseDto {
   id: number;
   playables: {
@@ -16,24 +19,8 @@ export class LevelResponseDto {
     };
   };
   lives: number;
-  combo: {
-    bars: {
-      goal: number;
-      rewards: {
-        type: string;
-        name: string;
-        amount: number;
-      }[];
-    }[];
-  };
-  goals: {
-    score: number;
-    rewards: {
-      type: string;
-      name: string;
-      amount: number;
-    }[];
-  }[];
+  combo: ComboResponseDto;
+  goals: GoalResponseDto[];
   worldId: number;
 
   constructor(partial: Partial<LevelResponseDto>) {

@@ -1,7 +1,7 @@
 import { Playable } from './playable.model';
-import { Combo } from './combo.model';
 import { Stats } from './stats.model';
-import { Goal } from './goal.model';
+import { Goal } from '../goals/models/goal.model';
+import { Combo } from '../combo/models/combo.model';
 
 export class Level {
   id: number;

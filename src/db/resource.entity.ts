@@ -4,34 +4,41 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { UserEntity } from './user.entity';
+import { ResourceTypesEnum } from '../core/resources/models/resourceTypes.enum';
+import { BoosterNamesEnum } from '../core/resources/models/boosterNamesEnum';
+import { CurrencyNamesEnum } from '../core/resources/models/currencyNamesEnum';
 
 @Entity({ name: 'resources' })
 export class ResourceEntity {
   @PrimaryGeneratedColumn()
   id: string;
 
-  @Column()
-  type: string;
+  @Column({
+    type: 'enum',
+    enum: ResourceTypesEnum,
+  })
+  type: ResourceTypesEnum;
 
   @Column()
-  name: string;
+  name: BoosterNamesEnum | CurrencyNamesEnum;
 
   @Column()
   amount: number;
+
+  @Column()
+  ownerType: string;
+
+  @Column()
+  ownerId: string;
 
   @CreateDateColumn()
   createdAt: Date;
 
   @UpdateDateColumn()
   updatedAt: Date;
-
-  @ManyToOne((type) => UserEntity, (user) => user.resources)
-  user: UserEntity;
 
   @BeforeInsert()
   beforeInsert() {

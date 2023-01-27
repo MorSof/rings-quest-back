@@ -1,7 +1,7 @@
 import { ApiModelProperty } from '@nestjs/swagger/dist/decorators/api-model-property.decorator';
-import { ComboRequestDto } from './combo-request.dto';
 import { PlayablesRequestDto } from './playables-request.dto';
-import { GoalRequestDto } from './goal-request.dto';
+import { ComboRequestDto } from '../combo/dtos/combo-request.dto';
+import { GoalRequestDto } from '../goals/dtos/goal-request.dto';
 
 export class LevelRequestDto {
   @ApiModelProperty({ type: 'integer', description: 'The ID of the level' })

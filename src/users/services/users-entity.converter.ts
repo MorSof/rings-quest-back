@@ -10,15 +10,12 @@ export class UsersEntityConverter {
   ) {}
 
   public convertFrom(userEntity: UserEntity): User {
-    const { id, name, email, resources } = userEntity;
-    return new User({ id, name, email, resources });
+    const { id, name, email } = userEntity;
+    return new User({ id, name, email });
   }
 
   public convertTo(user: User): UserEntity {
-    const { id, name, email, resources } = user;
-    const resourcesEntity = resources?.map((resource) =>
-      this.resourcesEntityConverter.convertTo(resource),
-    );
-    return new UserEntity({ id, name, email, resources: resourcesEntity });
+    const { id, name, email } = user;
+    return new UserEntity({ id, name, email });
   }
 }

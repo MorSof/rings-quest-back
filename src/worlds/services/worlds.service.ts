@@ -27,7 +27,7 @@ export class WorldsService {
       where: { id },
       relations: { levels: true },
     });
-    return this.worldsEntityConverter.covertTo(worldEntity);
+    return this.worldsEntityConverter.covertFrom(worldEntity);
   }
 
   async create(world: World): Promise<World> {
