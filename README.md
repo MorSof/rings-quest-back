@@ -18,6 +18,21 @@ $ docker-compose pull
 $ docker-compose up
 ````
 
+On the first time running this, the app container should be failed:
+1. Go to the DB section below and follow the orders there
+2. 
+   ```shell
+   $ docker-compose down
+   $ docker-compose up
+   ````
+
+Now all the containers should work!
+
+The service is exposed on http://localhost:3555
+
+OpenApi (Swagger) is exposed here http://localhost:3555/api
+
+
 ## Development
 
 ### Prerequisites
@@ -63,10 +78,10 @@ After your docker-compose is up, you'll nee to create a DB:
 2. Press on the "Add New Server" Button, a popup window will appear.
 3. On the general tab name your server "rings_quest"
 4. On the connection tab:
-   - **Host name/address**: postgres 
+   - **Host name/address**: db 
    - **Port**: 5432
-   - **Username**: dev
-   - **Password**: 1234
+   - **Username**: user
+   - **Password**: admin
 
 ## Test
 
