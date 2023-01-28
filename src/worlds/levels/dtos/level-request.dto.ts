@@ -1,7 +1,7 @@
 import { ApiModelProperty } from '@nestjs/swagger/dist/decorators/api-model-property.decorator';
-import { PlayablesRequestDto } from './playables-request.dto';
 import { ComboRequestDto } from '../combo/dtos/combo-request.dto';
 import { GoalRequestDto } from '../goals/dtos/goal-request.dto';
+import { PlayableRequestDto } from '../playable/dtos/playable-request.dto';
 
 export class LevelRequestDto {
   @ApiModelProperty({ type: 'integer', description: 'The ID of the level' })
@@ -9,10 +9,10 @@ export class LevelRequestDto {
 
   @ApiModelProperty({
     isArray: true,
-    type: PlayablesRequestDto,
+    type: PlayableRequestDto,
     description: 'An array of playables for the level',
   })
-  playables: PlayablesRequestDto[];
+  playables: PlayableRequestDto[];
 
   @ApiModelProperty({
     isArray: true,
@@ -22,8 +22,9 @@ export class LevelRequestDto {
   goals: GoalRequestDto[];
 
   @ApiModelProperty({
-    type: 'number',
-    description: 'The score goal for the level',
+    type: 'string',
+    description: 'The lives of the level',
+    required: true,
   })
   lives: number;
 

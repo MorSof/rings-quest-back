@@ -1,6 +1,6 @@
 import { ApiModelProperty } from '@nestjs/swagger/dist/decorators/api-model-property.decorator';
 
-export class PlayablesRequestDto {
+export class PlayableResponseDto {
   @ApiModelProperty({
     type: 'string',
     description: 'The type of playable',
@@ -43,4 +43,8 @@ export class PlayablesRequestDto {
     items: { type: 'number' },
   })
   vertices: number[];
+
+  constructor(partial: Partial<PlayableResponseDto>) {
+    Object.assign(this, partial);
+  }
 }

@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { UserRequestDto } from '../dtos/user-request.dto';
 import { UsersService } from '../services/users.service';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { User } from '../models/user.model';
 import { UserResponseDto } from '../dtos/user-response.dto';
 import { UsersDtoConverter } from '../services/users-dto.converter';
@@ -22,18 +22,31 @@ export class UsersController {
     private readonly usersDtoConverter: UsersDtoConverter,
   ) {}
 
+  @ApiOkResponse({
+    description: 'The user records',
+    type: UserResponseDto,
+    isArray: true,
+  })
   @Get()
   async findUAllUsers(): Promise<UserResponseDto[]> {
     const users: User[] = await this.userService.findUAllUsers();
     return users.map((user) => this.usersDtoConverter.convertTo(user));
   }
 
+  @ApiOkResponse({
+    description: 'The user record',
+    type: UserResponseDto,
+  })
   @Get(':id')
   async findUsersById(@Param('id') id: string): Promise<UserResponseDto> {
     const user: User = await this.userService.findUsersById(id);
     return this.usersDtoConverter.convertTo(user);
   }
 
+  @ApiOkResponse({
+    description: 'The user records',
+    type: UserResponseDto,
+  })
   @Post()
   @UsePipes(ValidationPipe)
   async createUsers(
@@ -45,6 +58,10 @@ export class UsersController {
     );
   }
 
+  @ApiOkResponse({
+    description: 'The user storage',
+    type: UserResponseDto,
+  })
   @Get(':id/storage')
   async getUserStorage(@Param('id') id: string): Promise<UserResponseDto> {
     const user: User = await this.userService.getUserStorage(id);

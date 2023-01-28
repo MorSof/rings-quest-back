@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { Resource } from '../models/resource.model';
 import { ResourceRequestDto } from '../dtos/resource-request.dto';
 import { ResourceResponseDto } from '../dtos/resource-response.dto';
@@ -12,17 +12,19 @@ export class ResourcesDtoConverter {
     const { name, amount, type } = resourceRequestDto;
     if (
       (type == ResourceTypesEnum.BOOSTER &&
-        !Object.values(BoosterNamesEnum).includes(name as BoosterNamesEnum)) ||
+        Object.values(BoosterNamesEnum).includes(name as BoosterNamesEnum)) ||
       (type == ResourceTypesEnum.CURRENCY &&
-        !Object.values(CurrencyNamesEnum).includes(name as CurrencyNamesEnum))
+        Object.values(CurrencyNamesEnum).includes(name as CurrencyNamesEnum))
     ) {
-      throw new Error(`unsupported resource: ${name}`);
+      return new Resource({
+        name,
+        amount,
+        type,
+      });
     }
-    return new Resource({
-      name,
-      amount,
-      type,
-    });
+    throw new BadRequestException(
+      `unsupported resource ${JSON.stringify(resourceRequestDto)}`,
+    );
   }
 
   public convertTo(resource: Resource): ResourceResponseDto {

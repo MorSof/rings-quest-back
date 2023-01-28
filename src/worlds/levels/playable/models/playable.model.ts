@@ -1,4 +1,4 @@
-export interface Playable {
+export class Playable {
   type: string;
   subType?: string;
   name: string;
@@ -6,4 +6,8 @@ export interface Playable {
   cooldown: number;
   vertices: number[];
   score: number;
+
+  constructor(partial: Partial<Playable>) {
+    Object.assign(this, partial);
+  }
 }

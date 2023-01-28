@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { LevelsService } from '../services/levels.service';
 import { Level } from '../models/level.model';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { LevelRequestDto } from '../dtos/level-request.dto';
 import { LevelResponseDto } from '../dtos/level-response.dto';
 import { LevelsDtoConverter } from '../services/levels-dto.converter';
@@ -22,6 +22,10 @@ export class LevelsController {
     private readonly levelsDtoConverterService: LevelsDtoConverter,
   ) {}
 
+  @ApiOkResponse({
+    description: 'The level record',
+    type: LevelResponseDto,
+  })
   @Get(':id')
   async findOne(
     @Param('worldId') worldId: number,
@@ -31,6 +35,11 @@ export class LevelsController {
     return this.levelsDtoConverterService.convertTo(level);
   }
 
+  @ApiOkResponse({
+    description: 'The level record',
+    type: LevelResponseDto,
+    isArray: true,
+  })
   @Get()
   async findAll(
     @Param('worldId') worldId: number,
@@ -41,6 +50,10 @@ export class LevelsController {
     );
   }
 
+  @ApiOkResponse({
+    description: 'The level record',
+    type: LevelResponseDto,
+  })
   @Post()
   async create(
     @Param('worldId') worldId: number,
@@ -53,6 +66,10 @@ export class LevelsController {
     return this.levelsDtoConverterService.convertTo(level);
   }
 
+  @ApiOkResponse({
+    description: 'The level record',
+    type: LevelResponseDto,
+  })
   @Put()
   async update(
     @Param('worldId') worldId: number,
