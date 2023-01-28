@@ -29,7 +29,7 @@ export class UsersController {
   })
   @Get()
   async findUAllUsers(): Promise<UserResponseDto[]> {
-    const users: User[] = await this.userService.findUAllUsers();
+    const users: User[] = await this.userService.findAllUsers();
     return users.map((user) => this.usersDtoConverter.convertTo(user));
   }
 

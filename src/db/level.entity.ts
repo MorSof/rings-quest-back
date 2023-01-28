@@ -5,6 +5,7 @@ import {
   CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -12,6 +13,7 @@ import { WorldEntity } from './world.entity';
 import { ResourceTypesEnum } from '../core/resources/models/resourceTypes.enum';
 import { CurrencyNamesEnum } from '../core/resources/models/currencyNamesEnum';
 import { BoosterNamesEnum } from '../core/resources/models/boosterNamesEnum';
+import { UserLevelEntity } from './user-level.entity';
 
 @Entity({ name: 'levels' })
 export class LevelEntity {
@@ -65,8 +67,11 @@ export class LevelEntity {
   @Column({ nullable: true, type: 'float' })
   worldId: number;
 
-  @ManyToOne((type) => WorldEntity, (world) => world.levels)
+  @ManyToOne(() => WorldEntity, (world) => world.levels)
   world: WorldEntity;
+
+  @OneToMany((type) => UserLevelEntity, (userLevels) => userLevels.level)
+  userLevels: UserLevelEntity[];
 
   @CreateDateColumn()
   createdAt: Date;
