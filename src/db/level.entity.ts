@@ -12,7 +12,6 @@ import {
 import { WorldEntity } from './world.entity';
 import { ResourceTypesEnum } from '../core/resources/models/resourceTypes.enum';
 import { CurrencyNamesEnum } from '../core/resources/models/currencyNamesEnum';
-import { BoosterNamesEnum } from '../core/resources/models/boosterNamesEnum';
 import { UserLevelEntity } from './user-level.entity';
 
 @Entity({ name: 'levels' })
@@ -40,7 +39,7 @@ export class LevelEntity {
       goal: number;
       rewards: {
         type: ResourceTypesEnum;
-        name: BoosterNamesEnum | CurrencyNamesEnum;
+        name: CurrencyNamesEnum;
         amount: number;
       }[];
     }[];
@@ -51,7 +50,7 @@ export class LevelEntity {
     score: number;
     rewards: {
       type: ResourceTypesEnum;
-      name: BoosterNamesEnum | CurrencyNamesEnum;
+      name: CurrencyNamesEnum;
       amount: number;
     }[];
   }[];

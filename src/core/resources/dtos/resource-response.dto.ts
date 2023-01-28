@@ -1,6 +1,5 @@
 import { ResourceTypesEnum } from '../models/resourceTypes.enum';
 import { CurrencyNamesEnum } from '../models/currencyNamesEnum';
-import { BoosterNamesEnum } from '../models/boosterNamesEnum';
 import { ApiModelProperty } from '@nestjs/swagger/dist/decorators/api-model-property.decorator';
 import { IsEnum } from 'class-validator';
 
@@ -12,16 +11,13 @@ export class ResourceResponseDto {
   })
   type: ResourceTypesEnum;
 
-  @IsEnum(BoosterNamesEnum)
+  @IsEnum(CurrencyNamesEnum)
   @ApiModelProperty({
-    enum: [
-      ...Object.values(BoosterNamesEnum),
-      ...Object.values(CurrencyNamesEnum),
-    ],
+    enum: [...Object.values(CurrencyNamesEnum)],
     description: 'The name of the resource',
     required: true,
   })
-  name: BoosterNamesEnum | CurrencyNamesEnum;
+  name: CurrencyNamesEnum;
 
   @ApiModelProperty({
     type: 'number',

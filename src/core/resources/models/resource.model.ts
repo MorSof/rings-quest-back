@@ -1,11 +1,10 @@
 import { ResourceTypesEnum } from './resourceTypes.enum';
-import { BoosterNamesEnum } from './boosterNamesEnum';
 import { CurrencyNamesEnum } from './currencyNamesEnum';
 
 export class Resource {
   id?: string;
   type: ResourceTypesEnum;
-  name: BoosterNamesEnum | CurrencyNamesEnum;
+  name: CurrencyNamesEnum;
   amount: number;
   ownerType?: string;
   ownerId?: string;

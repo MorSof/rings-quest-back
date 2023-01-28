@@ -3,7 +3,6 @@ import { Resource } from '../models/resource.model';
 import { ResourceRequestDto } from '../dtos/resource-request.dto';
 import { ResourceResponseDto } from '../dtos/resource-response.dto';
 import { ResourceTypesEnum } from '../models/resourceTypes.enum';
-import { BoosterNamesEnum } from '../models/boosterNamesEnum';
 import { CurrencyNamesEnum } from '../models/currencyNamesEnum';
 
 @Injectable()
@@ -11,10 +10,8 @@ export class ResourcesDtoConverter {
   public convertFrom(resourceRequestDto: ResourceRequestDto): Resource {
     const { name, amount, type } = resourceRequestDto;
     if (
-      (type == ResourceTypesEnum.BOOSTER &&
-        Object.values(BoosterNamesEnum).includes(name as BoosterNamesEnum)) ||
-      (type == ResourceTypesEnum.CURRENCY &&
-        Object.values(CurrencyNamesEnum).includes(name as CurrencyNamesEnum))
+      type == ResourceTypesEnum.CURRENCY &&
+      Object.values(CurrencyNamesEnum).includes(name as CurrencyNamesEnum)
     ) {
       return new Resource({
         name,

@@ -8,7 +8,6 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { ResourceTypesEnum } from '../core/resources/models/resourceTypes.enum';
-import { BoosterNamesEnum } from '../core/resources/models/boosterNamesEnum';
 import { CurrencyNamesEnum } from '../core/resources/models/currencyNamesEnum';
 
 @Entity({ name: 'resources' })
@@ -23,7 +22,7 @@ export class ResourceEntity {
   type: ResourceTypesEnum;
 
   @Column()
-  name: BoosterNamesEnum | CurrencyNamesEnum;
+  name: CurrencyNamesEnum;
 
   @Column()
   amount: number;
