@@ -22,7 +22,7 @@ export class UsersService {
     return this.usersEntityConverter.convertFrom(userEntity);
   }
 
-  async findUAllUsers(): Promise<User[]> {
+  async findAllUsers(): Promise<User[]> {
     const userEntities: UserEntity[] = await this.userRepository.find();
     return userEntities.map((userEntity) =>
       this.usersEntityConverter.convertFrom(userEntity),

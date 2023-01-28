@@ -4,9 +4,11 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { UserLevelEntity } from './user-level.entity';
 
 @Entity({ name: 'users' })
 export class UserEntity {
@@ -18,6 +20,9 @@ export class UserEntity {
 
   @Column({ nullable: true })
   email: string;
+
+  @OneToMany(() => UserLevelEntity, (userLevelsEntity) => userLevelsEntity.user)
+  userLevels: UserLevelEntity[];
 
   @CreateDateColumn()
   createdAt?: Date;
