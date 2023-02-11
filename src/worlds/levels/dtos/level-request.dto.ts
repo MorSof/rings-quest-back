@@ -22,7 +22,7 @@ export class LevelRequestDto {
   goals: GoalRequestDto[];
 
   @ApiModelProperty({
-    type: 'string',
+    type: 'number',
     description: 'The lives of the level',
     required: true,
   })
